@@ -4,7 +4,7 @@ plugins {
 
 loom {
     forge {
-        mixinConfig "myjaddon.mixins.json"
+        mixinConfig "jcraft_sf.mixins.json"
     }
 }
 

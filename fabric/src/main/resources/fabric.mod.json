@@ -1,32 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "myjaddon",
+  "id": "jcraft_sf",
   "version": "${version}",
-  "name": "JCraft Example Addon",
+  "name": "JCraft Stone Free Addon",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
-    "Me!"
+    "Arsik"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
-  "license": "CC0-1.0",
-  "icon": "assets/myjaddon/icon.png",
+  "license": "MIT",
+  "icon": "assets/jcraft_sf/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.example.myjaddon.fabric.ExampleModFabric"
+      "net.arsik.jcraft_sf.fabric.StoneFreeFabric"
     ],
     "client": [
-      "com.example.myjaddon.fabric.client.ExampleModFabricClient"
+      "net.arsik.jcraft_sf.fabric.client.StoneFreeFabricClient"
     ],
     "fabric-datagen": [
-      "com.example.myjaddon.fabric.datagen.ExampleAddonDataGen"
+      "net.arsik.jcraft_sf.fabric.datagen.StoneFreeDataGen"
     ]
   },
   "mixins": [
-    "myjaddon.mixins.json"
+    "jcraft_sf.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.14",

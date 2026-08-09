@@ -1,40 +1,40 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "MIT"
 
 [[mods]]
-modId = "myjaddon"
+modId = "jcraft_sf"
 version = "${version}"
-displayName = "JCraft Example Addon"
-authors = "Me!"
+displayName = "JCraft Stone Free Addon"
+authors = "Arsik"
 description = '''
 This is an example description! Tell everyone what your mod is about!
 '''
-logoFile = "assets/myjaddon/icon.png"
+logoFile = "assets/jcraft_sf/icon.png"
 
-[[dependencies.myjaddon]]
+[[dependencies.jcraft_sf]]
 modId = "forge"
 mandatory = true
 versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.myjaddon]]
+[[dependencies.jcraft_sf]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.myjaddon]]
+[[dependencies.jcraft_sf]]
 modId = "architectury"
 mandatory = true
 versionRange = "[9.2.14,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.myjaddon]]
+[[dependencies.jcraft_sf]]
 modId = "jcraft"
 mandatory = true
 versionRange = "[0.18.0,)"
