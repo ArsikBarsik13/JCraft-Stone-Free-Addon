@@ -50,6 +50,7 @@ dependencies {
     modImplementation "net.arna:jcraft-fabric:${rootProject.jcraft_version}"
     modImplementation "net.arna:jcraft-datagen-api:${rootProject.jcraft_version}"
     modImplementation "mod.azure.azurelib:azurelib-fabric-1.20.1:${rootProject.azurelib_version}"
+    modImplementation "com.jcraft-eoe.jjbacosplay:jjbacosplay-datagen:1.20.1-1.0.0"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')

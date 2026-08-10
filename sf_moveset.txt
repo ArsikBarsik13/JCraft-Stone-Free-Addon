@@ -1,0 +1,59 @@
+Mid Range Versatile Mixmash Brawler
+
+Pros:
+Wide versatile kit
+Lots of options and potential playstyles
+Strong Moveset
+
+Cons:
+Relies on setup and spacing for lots of its pressure
+If you lean into one playstyle too much you're not using a lot of your moveset
+Benefits from playstyle alternating and adapting to your opponent
+
+M1 - Light ~ Followup Light,
+single punch has +7 stun, +4 startup, +6 on block,
+followup has +2 stun and -5 on block, launches
+
+Cr M1 - Left Forefoot Smack ~ places left foot on floor > 180 degree spin clockwise > Right Heel kick (launcher)
+left kick - low range low stun jab, can be used with m1 for jab routes, +4 stun, +5 windup
+right kick - extender, 8 ticks of stun,
+
+Barrage - +26 winded stun, +2 on block,
+
+Heavy - String Punch: 9 ticks of stun
+1 point of armour, extender, medium windup with far forward hitbox, think HG S2. Good reach but doesn't cover infront of the user so can be easy to dodge if up close. Punishable on block. (S3 can cover for the bad recovery of S2 even on block to allow for S2 pokes when the opponent is inside the web)
+
+S1 - no clue for now
+
+S2 - Cocoon
+Blockable, easily punishable on block grab, stone free turns one of its arms into strings and wraps the opponent into a cocoon, if stun drops while the opponent is in the cocoon, the cocoon breaks and inflicts brief knockdown. While the cocoon is active, damage inflicted by the stand is reduced (because only being able to use 1 arm as the other is wrapped around the opponent). Benefits of the cocoon is the opponent is locked down and unable to move. Meaning you can space moves hitboxes, setup or extend of launching moves. Useful for confirming S2 and the cocoon stays even if you stand off as long as the opponent remains stunned.
+
+Cr S2 - Low Grapple, Blockable, windup is determined by distance with travel time, travels along the floor and wraps around the opponents leg, knocks them down and reels them in. Effects on hit are blockable, 8 tick windup
+
+S3 - Web Placement: 10 tick windup
+string webs run along the floor, slows down people walking on them and detects invisible players. Uses blockgauge when placed. Can be killed with a sword, damage is given back to the user.
+
+WHILE WEB IS ACTIVE: (all have 8 ticks windup)
+Aerial S3 - The web like a trampoline flings all the opponents up into the air, good for underneath backstabbing and juggling
+Grounded S3 - Stabs all entities inside the web (damage)
+Crouching S3 - The web reels back into stone free's hand and does a 1 hand barrage of the opponent (basic extender low damage)
+After one of these followups are used when an entity is inside the web, the web will be desummoned. All of these followup S3's can be blocked and punished (especially considering placing a web requires blockgauge)
+
+Utility - Web sling, 2 tick windup, has travel time btw so its not a teleport hence the low windup, input any move to cancel the web rope including block
+
+Utility (While Web is active) Extends the web
+Cr Utility - Real In, shortens the web
+
+Ultimate - Mobius Strip counter, If the user is stunned within the next 3 seconds it will create a mobius strip on the users body which will only disappear 1.5 seconds after the user is no longer stunned. IE end of a combo. The mobius strip reduces incoming damage and also temporarily halts status effects. Does not affect stun.
+Can be used to tank and endure otherwise lethal combos, reducing damage until the combo drops. Opponents can counter this by dropping the combo with good oki and starting a new one. An unwise opponent will waste all their cooldowns while the mobius strip is ongoing or get punished by a bad combo sendoff and the SF user starting their own combo
+4 tick startup, 3 second active frames, effects continue for 3 seconds after until the user is no longer stunned. 55 ticks of whiff.
+
+Cr Ultimate - Improvised Mobius Strip, cancels any ongoing effects including knockdown, poison, blindness etc... as well as crushing and fire damage. Can be cancelled by the opponent. Only applicable after receiving the effect unlike the counter which can be used in advance to better counter the attack. 3 tick startup. 2 tick recovery.
+
+B&Bs
+
+(Web Pre-Planted) > Barrage > (Dash Back) > S2 (hit opponent into the web) >  S3 web followup
+
+Cr M1 ~ Cr M1 > M1 > Barrage
+
+Cr M1 ~ Cr M1 > Cr S2
