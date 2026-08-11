@@ -1,0 +1,11 @@
+{
+  "entity.jcraft_sf.stone_free": "Stone Free",
+  "entity.jcraft_sf.stone_free.info.con1": "Relies on setup and spacing for lots of its pressure",
+  "entity.jcraft_sf.stone_free.info.con2": "If you lean into one playstyle too much you're not using a lot of your moveset",
+  "entity.jcraft_sf.stone_free.info.con3": "Benefits from playstyle alternating and adapting to your opponent",
+  "entity.jcraft_sf.stone_free.info.desc": "Mid Range Versatile Mixmash Brawler",
+  "entity.jcraft_sf.stone_free.info.freeSpace": "B&Bs\n                            (Web Pre-Planted) > Barrage > (Dash Back) > S2 (hit opponent into the web) > S3 web followup\n                            Cr M1 ~ Cr M1 > M1 > Barrage\n                            Cr M1 ~ Cr M1 > Cr S2        ...Grav. Hop>Ground Slam\n        ...Gut Punch",
+  "entity.jcraft_sf.stone_free.info.pro1": "Wide versatile kit",
+  "entity.jcraft_sf.stone_free.info.pro2": "Lots of options and potential playstyles",
+  "entity.jcraft_sf.stone_free.info.pro3": "Strong Moveset"
+}

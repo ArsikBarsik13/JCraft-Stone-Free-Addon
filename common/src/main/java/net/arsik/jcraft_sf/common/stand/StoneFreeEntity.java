@@ -28,8 +28,10 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
     public static final MoveSet<StoneFreeEntity, State> MOVE_SET = MoveSetManager.create(SFStandTypeRegistry.STONE_FREE,
             StoneFreeEntity::registerMoves, StoneFreeEntity.class, State.class);
     public static final StandData DATA = StandData.builder()
+            .idleDistance(1.25f)
+            .idleRotation(-45f)
             .info(StandInfo.builder()
-                    .name(Component.literal("Stone Free"))
+                    .name(Component.translatable("entity.jcraft_sf.stone_free"))
                     .proCount(3)
                     .conCount(3)
                     .freeSpace(Component.literal(""" 
@@ -42,23 +44,31 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
             .summonData(SummonData.of(JSoundRegistry.STAR_PLATINUM_SUMMON))
             .build();
 
-    /*public static final SimpleAttack<StoneFreeEntity> LEFT_FOREFOOT_SMACK = new SimpleAttack<StoneFreeEntity>(
-            JCraft.LIGHT_COOLDOWN, 5, 8, 0.75f, 5f, 7, 1.5f, 0.2f, -0.1f)
-            .withImpactSound(JSoundRegistry.IMPACT_1)
+    public static final SimpleAttack<StoneFreeEntity> LEFT_FOREFOOT_SMACK_FOLLOWUP = new SimpleAttack<StoneFreeEntity>(
+            JCraft.LIGHT_COOLDOWN, 5, 8, 1.0f, 3f, 4, 1.2f, 0.2f, -0.1f)
+            .withImpactSound(JSoundRegistry.IMPACT_3)
             .withInfo(
-                    Component.literal("Punch"),
-                    Component.literal("An example punch attack")
-            ); */
+                    Component.literal("Left Forefoot Smack"),
+                    Component.empty()
+            );
+    public static final SimpleAttack<StoneFreeEntity> LEFT_FOREFOOT_SMACK = new SimpleAttack<StoneFreeEntity>(
+            JCraft.LIGHT_COOLDOWN, 3, 8, 0.9f, 2.3f, 8, 1.1f, 0.2f, -0.1f)
+            .withFollowup(LEFT_FOREFOOT_SMACK_FOLLOWUP)
+            .withImpactSound(JSoundRegistry.IMPACT_4)
+            .withInfo(
+                    Component.literal("Left Forefoot Smack"),
+                    Component.literal("")
+            );
     public static final SimpleUppercutAttack<StoneFreeEntity> LIGHT_FOLLOWUP = new SimpleUppercutAttack<StoneFreeEntity>(
-            0, 4, 8, 0.8f, 2.4f, 9, 1.2f, 0.2f, 0.0f, 0.3f)
-            .withImpactSound(JSoundRegistry.IMPACT_1)
+            0, 4, 8, 0.8f, 2.4f, 2, 1.2f, 0.2f, 0.0f, 0.3f)
+            .withImpactSound(JSoundRegistry.IMPACT_2)
             .withInfo(
                     Component.literal("Light Followup"),
                     Component.empty()
             );
     public static final SimpleAttack<StoneFreeEntity> LIGHT = new SimpleAttack<StoneFreeEntity>(
-            JCraft.LIGHT_COOLDOWN, 5, 8, 0.75f, 2f, 7, 1.2f, 0.2f, 0.0f)
-            //.withCrouchingVariant(LEFT_FOREFOOT_SMACK)
+            JCraft.LIGHT_COOLDOWN, 3, 8, 0.75f, 2f, 7, 1.2f, 0.2f, 0.0f)
+            .withCrouchingVariant(LEFT_FOREFOOT_SMACK)
             .withFollowup(LIGHT_FOLLOWUP)
             .withImpactSound(JSoundRegistry.IMPACT_1)
             .withInfo(
@@ -68,17 +78,17 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
     public static final SimpleAttack<StoneFreeEntity> HEAVY = new SimpleAttack<StoneFreeEntity>(
             60, 5, 8, 1.25f, 4f, 9, 1.0f, 0.5f, 0.0f)
             .withArmor(1)
-            .withImpactSound(JSoundRegistry.IMPACT_1)
+            .withImpactSound(JSoundRegistry.IMPACT_6)
             .withInfo(
                     Component.literal("Heavy"),
-                    Component.literal("Simple heavy, 1 point of armour, if the opponent is too close you will miss them")
+                    Component.literal("Extended range heavy, 1 point of armour, if the opponent is too close you will miss them")
             );
     public static final MainBarrageAttack<StoneFreeEntity> BARRAGE = new MainBarrageAttack<StoneFreeEntity>(
-            280, 0, 40, 0.75f, 1f, 26, 2f, 0.25f, 0f, 3, Blocks.OBSIDIAN.defaultDestroyTime())
+            280, 10, 40, 0.75f, 1f, 26, 2f, 0.25f, 0f, 3, Blocks.OBSIDIAN.defaultDestroyTime())
             .withSound(JSoundRegistry.STAR_PLATINUM_BARRAGE)
             .withInfo(
                     Component.translatable("jcraft.generic.barrage"),
-                    Component.literal("Simple barrage")
+                    Component.literal("Winded up barrage")
             );
 
     public StoneFreeEntity(final Level world) {
@@ -93,11 +103,11 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
     }
 
     private static void registerMoves(MoveMap<StoneFreeEntity, State> moveMap) {
-        moveMap.register(MoveClass.LIGHT, LIGHT, null).withFollowup(null);
+        moveMap.register(MoveClass.LIGHT, LIGHT, State.LIGHT).withFollowup(State.LIGHT).withCrouchingVariant(State.LIGHT).withFollowup(State.LIGHT);
 
-        moveMap.register(MoveClass.HEAVY, HEAVY, null);
+        moveMap.register(MoveClass.HEAVY, HEAVY, State.LIGHT);
 
-        moveMap.register(MoveClass.BARRAGE, BARRAGE, null);
+        moveMap.register(MoveClass.BARRAGE, BARRAGE, State.BARRAGE);
     }
 
     @Override
