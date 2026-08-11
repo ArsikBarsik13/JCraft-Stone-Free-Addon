@@ -1,9 +1,14 @@
 package net.arsik.jcraft_sf.common.stand;
 
 import net.arna.jcraft.JCraft;
+import net.arna.jcraft.api.registry.JStatusRegistry;
 import net.arna.jcraft.api.stand.SummonData;
+import net.arna.jcraft.common.attack.moves.shared.NoOpMove;
 import net.arna.jcraft.common.attack.moves.shared.SimpleUppercutAttack;
+import net.arna.jcraft.platform.JComponentPlatformUtils;
 import net.arsik.jcraft_sf.StoneFree;
+import net.arsik.jcraft_sf.common.attack.CocoonAttack;
+import net.arsik.jcraft_sf.common.register.SFSoundRegistry;
 import net.arsik.jcraft_sf.common.register.SFStandTypeRegistry;
 import mod.azure.azurelib.animation.dispatch.command.AzCommand;
 import mod.azure.azurelib.animation.play_behavior.AzPlayBehaviors;
@@ -19,9 +24,12 @@ import net.arna.jcraft.common.attack.moves.shared.MainBarrageAttack;
 import net.arna.jcraft.common.attack.moves.shared.SimpleAttack;
 import net.arna.jcraft.common.util.StandAnimationState;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntity.State> {
@@ -41,7 +49,7 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
                             Cr M1 ~ Cr M1 > Cr S2"""
                     ))
                     .build())
-            .summonData(SummonData.of(JSoundRegistry.STAR_PLATINUM_SUMMON))
+            .summonData(SummonData.of(SFSoundRegistry.SF_SUMMON))
             .build();
 
     public static final SimpleAttack<StoneFreeEntity> LEFT_FOREFOOT_SMACK_FOLLOWUP = new SimpleAttack<StoneFreeEntity>(
@@ -90,6 +98,22 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
                     Component.translatable("jcraft.generic.barrage"),
                     Component.literal("Winded up barrage")
             );
+    public static final NoOpMove<StoneFreeEntity> COCOON_HOLD =
+            new NoOpMove<>(0, 100, 0f);
+
+    public static final CocoonAttack COCOON = new CocoonAttack(
+            100, 10, 13, 1.25f, 2f, 60, 1.0f, 0.5f, 0.0f, COCOON_HOLD, 100, 2.3f)
+            .withImpactSound(JSoundRegistry.IMPACT_1)
+            .withInfo(
+                    Component.literal("Cocoon"),
+                    Component.literal("Wraps one arm around the target, locking them down while stunned")
+            );
+
+    private LivingEntity cocoonTarget;
+
+    public void setCocoonTarget(@Nullable LivingEntity target) {
+        this.cocoonTarget = target;
+    }
 
     public StoneFreeEntity(final Level world) {
         super(SFStandTypeRegistry.STONE_FREE.get(), world);
@@ -103,17 +127,42 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
     }
 
     private static void registerMoves(MoveMap<StoneFreeEntity, State> moveMap) {
-        moveMap.register(MoveClass.LIGHT, LIGHT, State.LIGHT).withFollowup(State.LIGHT).withCrouchingVariant(State.LIGHT).withFollowup(State.LIGHT);
+        moveMap.register(MoveClass.LIGHT, LIGHT, State.LIGHT).withFollowup(State.LIGHT);
 
         moveMap.register(MoveClass.HEAVY, HEAVY, State.LIGHT);
 
         moveMap.register(MoveClass.BARRAGE, BARRAGE, State.BARRAGE);
+
+        moveMap.register(MoveClass.SPECIAL2, COCOON, State.BARRAGE);
     }
 
     @Override
     public boolean initMove(final MoveClass moveClass) {
         if (tryFollowUp(moveClass, MoveClass.LIGHT)) return true;
         return super.initMove(moveClass);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (cocoonTarget != null && !level().isClientSide) {
+            final boolean stillStunned = cocoonTarget.isAlive()
+                    && cocoonTarget.getEffect(JStatusRegistry.DAZED.get()) != null;
+
+            if (!stillStunned) {
+                breakCocoon();
+            }
+        }
+    }
+
+    private void breakCocoon() {
+        if (cocoonTarget.isAlive()) {
+            JComponentPlatformUtils.getGrab(cocoonTarget).endGrab();
+            cocoonTarget.addEffect(new MobEffectInstance(JStatusRegistry.KNOCKDOWN.get(), 20, 0, true, false));
+        }
+        cocoonTarget = null;
+        cancelMove(); //returns to SF
     }
 
     @NotNull
@@ -136,7 +185,8 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
         IDLE(AzCommand.create(StoneFree.BASE_CONTROLLER, "idle", AzPlayBehaviors.LOOP)),
         LIGHT(AzCommand.create(StoneFree.BASE_CONTROLLER, "light", AzPlayBehaviors.HOLD_ON_LAST_FRAME)),
         BLOCK(AzCommand.create(StoneFree.BASE_CONTROLLER, "block", AzPlayBehaviors.LOOP)),
-        BARRAGE(AzCommand.create(StoneFree.BASE_CONTROLLER, "barrage", AzPlayBehaviors.LOOP));
+        BARRAGE(AzCommand.create(StoneFree.BASE_CONTROLLER, "barrage", AzPlayBehaviors.LOOP)),
+        COCOON(AzCommand.create(StoneFree.BASE_CONTROLLER, "cocoon", AzPlayBehaviors.LOOP));
 
         private final AzCommand animator;
 
