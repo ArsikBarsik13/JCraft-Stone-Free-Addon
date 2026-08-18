@@ -1,4 +1,4 @@
-package net.arsik.jcraft_sf.common.stand;
+package net.arsik.jcraft_sf.common.entity.stand;
 
 import net.arna.jcraft.JCraft;
 import net.arna.jcraft.api.registry.JStatusRegistry;
@@ -8,6 +8,7 @@ import net.arna.jcraft.common.attack.moves.shared.SimpleUppercutAttack;
 import net.arna.jcraft.platform.JComponentPlatformUtils;
 import net.arsik.jcraft_sf.StoneFree;
 import net.arsik.jcraft_sf.common.attack.CocoonAttack;
+import net.arsik.jcraft_sf.common.attack.LowGrappleAttack;
 import net.arsik.jcraft_sf.common.register.SFSoundRegistry;
 import net.arsik.jcraft_sf.common.register.SFStandTypeRegistry;
 import mod.azure.azurelib.animation.dispatch.command.AzCommand;
@@ -92,18 +93,31 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
                     Component.literal("Extended range heavy, 1 point of armour, if the opponent is too close you will miss them")
             );
     public static final MainBarrageAttack<StoneFreeEntity> BARRAGE = new MainBarrageAttack<StoneFreeEntity>(
-            280, 10, 40, 0.75f, 1f, 26, 2f, 0.25f, 0f, 3, Blocks.OBSIDIAN.defaultDestroyTime())
-            .withSound(JSoundRegistry.STAR_PLATINUM_BARRAGE)
+            280, 0, 40, 0.75f, 1f, 26, 2f, 0.25f, 0f, 3, Blocks.OBSIDIAN.defaultDestroyTime())
+            .withSound(SFSoundRegistry.SF_BARRAGE)
             .withInfo(
                     Component.translatable("jcraft.generic.barrage"),
-                    Component.literal("Winded up barrage")
+                    Component.literal("Strong generic barrage")
             );
+
+    public static final LowGrappleAttack<StoneFreeEntity> LOW_GRAPPLE = new LowGrappleAttack<StoneFreeEntity>(50 * 20, 14, 30,
+            0f, 4f, 10, 2.5f, 0.3f, 0)
+            .withInfo(
+                    Component.literal("Perfect Freeze"),
+                    Component.literal("""
+                            freezes all nearby enemies
+                            summons 3 ice branches to chase opponents
+                            stops all nearby projectiles""")
+            )
+            .withSound(JSoundRegistry.HORUS_PlACE_CREEPING_ICE);
+
     public static final NoOpMove<StoneFreeEntity> COCOON_HOLD =
             new NoOpMove<>(0, 100, 0f);
 
     public static final CocoonAttack COCOON = new CocoonAttack(
             100, 10, 13, 1.25f, 2f, 60, 1.0f, 0.5f, 0.0f, COCOON_HOLD, 100, 2.3f)
             .withImpactSound(JSoundRegistry.IMPACT_1)
+            .withCrouchingVariant(LOW_GRAPPLE)
             .withInfo(
                     Component.literal("Cocoon"),
                     Component.literal("Wraps one arm around the target, locking them down while stunned")
@@ -113,6 +127,13 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
 
     public void setCocoonTarget(@Nullable LivingEntity target) {
         this.cocoonTarget = target;
+    }
+
+    private LivingEntity grappleReelTarget;
+
+    public void onGrappleCatch(final LivingEntity target) {
+        target.addEffect(new MobEffectInstance(JStatusRegistry.KNOCKDOWN.get(), 40, 0, true, false));
+        grappleReelTarget = target;
     }
 
     public StoneFreeEntity(final Level world) {
@@ -127,13 +148,15 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
     }
 
     private static void registerMoves(MoveMap<StoneFreeEntity, State> moveMap) {
-        moveMap.register(MoveClass.LIGHT, LIGHT, State.LIGHT).withFollowup(State.LIGHT);
+        moveMap.register(MoveClass.LIGHT, LIGHT, State.LIGHT)
+                .withFollowup(State.LIGHT);
 
         moveMap.register(MoveClass.HEAVY, HEAVY, State.LIGHT);
 
         moveMap.register(MoveClass.BARRAGE, BARRAGE, State.BARRAGE);
 
-        moveMap.register(MoveClass.SPECIAL2, COCOON, State.BARRAGE);
+        moveMap.register(MoveClass.SPECIAL2, COCOON, State.COCOON)
+                .withCrouchingVariant(State.LOW_GRAPPLE);
     }
 
     @Override
@@ -186,7 +209,8 @@ public class StoneFreeEntity extends StandEntity<StoneFreeEntity, StoneFreeEntit
         LIGHT(AzCommand.create(StoneFree.BASE_CONTROLLER, "light", AzPlayBehaviors.HOLD_ON_LAST_FRAME)),
         BLOCK(AzCommand.create(StoneFree.BASE_CONTROLLER, "block", AzPlayBehaviors.LOOP)),
         BARRAGE(AzCommand.create(StoneFree.BASE_CONTROLLER, "barrage", AzPlayBehaviors.LOOP)),
-        COCOON(AzCommand.create(StoneFree.BASE_CONTROLLER, "cocoon", AzPlayBehaviors.LOOP));
+        COCOON(AzCommand.create(StoneFree.BASE_CONTROLLER, "cocoon", AzPlayBehaviors.LOOP)),
+        LOW_GRAPPLE(AzCommand.create(StoneFree.BASE_CONTROLLER, "reach", AzPlayBehaviors.HOLD_ON_LAST_FRAME));
 
         private final AzCommand animator;
 

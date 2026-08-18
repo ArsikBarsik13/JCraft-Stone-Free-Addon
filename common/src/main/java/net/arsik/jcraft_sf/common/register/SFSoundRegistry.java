@@ -14,6 +14,7 @@ public interface SFSoundRegistry {
     }
 
     RegistrySupplier<SoundEvent> SF_SUMMON = register("sfsummon");
+    RegistrySupplier<SoundEvent> SF_BARRAGE = register("sfbarrage");
 
     static void init() {
         // intentionally left empty

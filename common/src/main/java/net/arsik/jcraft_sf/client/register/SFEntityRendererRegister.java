@@ -1,5 +1,6 @@
 package net.arsik.jcraft_sf.client.register;
 
+import net.arsik.jcraft_sf.client.renderer.GrappleThreadRenderer;
 import net.arsik.jcraft_sf.client.renderer.StoneFreeRenderer;
 import net.arsik.jcraft_sf.common.register.SFEntityTypeRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -11,6 +12,7 @@ import java.util.function.Supplier;
 public interface SFEntityRendererRegister {
     static void register(EntityRendererRegistrar registrar) {
         registrar.register(SFEntityTypeRegistry.STONE_FREE, StoneFreeRenderer::new);
+        registrar.register(SFEntityTypeRegistry.GRAPPLE_THREAD, GrappleThreadRenderer::new);
     }
 
     @FunctionalInterface

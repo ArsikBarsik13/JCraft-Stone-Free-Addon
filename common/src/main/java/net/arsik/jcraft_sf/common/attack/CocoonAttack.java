@@ -10,20 +10,13 @@ import net.arna.jcraft.api.attack.moves.AbstractGrabAttack;
 import net.arna.jcraft.api.attack.moves.AbstractMove;
 import net.arna.jcraft.common.util.JUtils;
 import net.arna.jcraft.platform.JComponentPlatformUtils;
-import net.arsik.jcraft_sf.common.stand.StoneFreeEntity;
+import net.arsik.jcraft_sf.common.entity.stand.StoneFreeEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-/**
- * Cocoon (S2) - a blockable, punishable grab. Wraps one arm around the target and
- * holds them in place near the attacker for as long as they remain stunned (DAZED).
- * The actual "does the stun still hold" check and the break -> knockdown transition
- * live in {@link StoneFreeEntity}'s tick loop, since that's addon-side logic that
- * doesn't need to touch core JCraft classes.
- */
 public final class CocoonAttack extends AbstractGrabAttack<CocoonAttack, StoneFreeEntity, StoneFreeEntity.State> {
 
     public CocoonAttack(final int cooldown, final int windup, final int duration, final float moveDistance,

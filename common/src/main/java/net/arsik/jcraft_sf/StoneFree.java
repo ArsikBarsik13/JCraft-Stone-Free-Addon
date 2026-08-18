@@ -1,6 +1,7 @@
 package net.arsik.jcraft_sf;
 
 import dev.architectury.registry.registries.DeferredRegister;
+import net.arsik.jcraft_sf.client.StoneFreeClient;
 import net.arsik.jcraft_sf.common.register.SFEntityTypeRegistry;
 import net.arsik.jcraft_sf.common.register.SFMoveTypeRegistry;
 import net.arsik.jcraft_sf.common.register.SFSoundRegistry;
@@ -19,6 +20,8 @@ public final class StoneFree {
         SFEntityTypeRegistry.REGISTRY.register();
         SFStandTypeRegistry.REGISTRY.register();
         SFMoveTypeRegistry.REGISTRY.register();
+
+        StoneFreeClient.init();
 
         SFEntityTypeRegistry.registerAttributes();
 

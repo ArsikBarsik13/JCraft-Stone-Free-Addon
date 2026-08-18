@@ -3,5 +3,10 @@
     "sounds": [
       "jcraft_sf:sfsummon"
     ]
+  },
+  "sfbarrage": {
+    "sounds": [
+      "jcraft_sf:sfbarrage"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 package net.arsik.jcraft_sf.fabric.datagen;
 
 import net.arsik.jcraft_sf.common.register.SFStandTypeRegistry;
-import net.arsik.jcraft_sf.common.stand.StoneFreeEntity;
+import net.arsik.jcraft_sf.common.entity.stand.StoneFreeEntity;
 import net.arna.jcraft.api.datagen.JCraftStandDataProvider;
 import net.arna.jcraft.api.stand.StandData;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

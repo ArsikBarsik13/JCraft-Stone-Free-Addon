@@ -1,7 +1,7 @@
 package net.arsik.jcraft_sf.client.renderer;
 
 import net.arsik.jcraft_sf.common.register.SFStandTypeRegistry;
-import net.arsik.jcraft_sf.common.stand.StoneFreeEntity;
+import net.arsik.jcraft_sf.common.entity.stand.StoneFreeEntity;
 import net.arna.jcraft.client.renderer.entity.stands.StandEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 

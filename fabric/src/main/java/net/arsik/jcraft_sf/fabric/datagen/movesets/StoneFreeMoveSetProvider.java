@@ -1,7 +1,7 @@
 package net.arsik.jcraft_sf.fabric.datagen.movesets;
 
 import net.arsik.jcraft_sf.common.register.SFStandTypeRegistry;
-import net.arsik.jcraft_sf.common.stand.StoneFreeEntity;
+import net.arsik.jcraft_sf.common.entity.stand.StoneFreeEntity;
 import net.arna.jcraft.api.attack.MoveMap;
 import net.arna.jcraft.api.attack.MoveSet;
 import net.arna.jcraft.api.datagen.JCraftMoveSetProvider;
